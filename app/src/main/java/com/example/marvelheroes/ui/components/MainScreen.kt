@@ -25,7 +25,7 @@ fun MainScreen() {
             FilledTriangle(MaterialTheme.colorScheme.error)
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Logo()
-                TextUnderLogo()
+                Title()
                 ListHeroes()
             }
         }

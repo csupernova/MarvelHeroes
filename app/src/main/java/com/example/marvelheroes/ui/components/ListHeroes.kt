@@ -2,6 +2,7 @@ package com.example.marvelheroes.ui.components
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.snapping.rememberSnapFlingBehavior
 import androidx.compose.foundation.layout.Box
@@ -24,21 +25,33 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role.Companion.Image
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
+import com.example.marvelheroes.R
 import kotlin.math.abs
 
+data class Heroes(
+    val name: Int,
+    val url: Int
+)
+
+@Preview
 @SuppressLint("UnusedBoxWithConstraintsScope")
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ListHeroes() {
-    val items = remember {
-        ('A'..'Z').map { it.toString() }
-    }
-    val configuration = LocalConfiguration.current
-    val screenHeight = configuration.screenHeightDp.dp
-    val screenWidth = configuration.screenWidthDp.dp
-
+    val heroes: List<Heroes> = listOf(
+        Heroes(R.string.deadpool, R.string.deadpool_url ),
+        Heroes(R.string.iron_man, R.string.iron_man_url),
+        Heroes(R.string.spiderman, R.string.spiderman_url)
+        )
     val lazyListState = rememberLazyListState()
     val flingBehavior = rememberSnapFlingBehavior(lazyListState = lazyListState)
     BoxWithConstraints {
@@ -49,7 +62,7 @@ fun ListHeroes() {
             state = lazyListState,
             flingBehavior = flingBehavior
         ) {
-            itemsIndexed(items) { index, item ->
+            itemsIndexed(heroes) { index, item ->
                 val opacity by remember {
                     derivedStateOf {
                         val currentItemInfo = lazyListState.layoutInfo.visibleItemsInfo
@@ -70,7 +83,10 @@ fun ListHeroes() {
                         .padding(8.dp)
                         .background(Color.Gray),
                 ) {
-                    Text(item, fontSize = 32.sp)
+                    AsyncImage(
+                        model = stringResource(item.url),
+                        contentDescription = stringResource(item.name)
+                    )
                 }
             }
         }
