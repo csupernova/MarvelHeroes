@@ -26,6 +26,7 @@ fun MainScreen() {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Logo()
                 TextUnderLogo()
+                ListHeroes()
             }
         }
     }
