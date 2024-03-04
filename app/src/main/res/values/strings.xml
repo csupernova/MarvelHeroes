@@ -14,4 +14,5 @@
     <string name="iron_man_url">https://iili.io/JMnuDI2.png</string>
     <string name="deadpool_url">https://iili.io/JMnAfIV.png</string>
     <string name="spiderman_url">https://iili.io/JMnuyB9.png</string>
+    <string name="back_button">back</string>
 </resources>
