@@ -26,24 +26,18 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.runtime.derivedStateOf
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.marvelheroes.R
 import com.example.marvelheroes.data.InfoHeroes
-import kotlin.math.abs
 
 
 
@@ -59,44 +53,50 @@ fun MainScreen(
         modifier = modifier,
         color = MaterialTheme.colorScheme.primary
     ) {
-        FilledTriangle(MaterialTheme.colorScheme.error)
+        FilledTriangle(MaterialTheme.colorScheme.secondary)
+
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Box(modifier = Modifier.padding(top=40.dp)) {
+            Box(modifier = Modifier.padding(top=dimensionResource(R.dimen.padding_large))
+            ) {
                 Image(
                     contentDescription = null,
                     painter = painterResource(R.drawable.logo_marvel),
                     modifier = Modifier
-                        .size(width = 150.dp, height = 40.dp)
+                        .size(
+                            width = dimensionResource(R.dimen.width_logo),
+                            height = dimensionResource(R.dimen.height_logo))
                 )
             }
-            Spacer(modifier = Modifier.height(40.dp))
+            Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_large)))
+
             Text(
                 text = stringResource(R.string.title),
-                color = Color.White,
-                fontSize = 30.sp,
-                fontWeight = FontWeight.Bold
+                color = MaterialTheme.colorScheme.tertiary,
+                style = MaterialTheme.typography.titleLarge
             )
 
             val lazyListState = rememberLazyListState()
             val flingBehavior = rememberSnapFlingBehavior(lazyListState = lazyListState)
+
             BoxWithConstraints {
                 LazyRow(
                     verticalAlignment = Alignment.CenterVertically,
                     state = lazyListState,
                     flingBehavior = flingBehavior,
                     contentPadding = PaddingValues(
-                        start = 65.dp,
-                        end = 65.dp
+                        start = dimensionResource(R.dimen.padding_lazyrow),
+                        end = dimensionResource(R.dimen.padding_lazyrow)
                     ),
-                    horizontalArrangement = Arrangement.spacedBy(30.dp),
+                    horizontalArrangement = Arrangement.spacedBy(
+                        dimensionResource(R.dimen.padding_btwn_cards)
+                    ),
                     modifier = Modifier.fillMaxSize()
                 ) {
                     itemsIndexed(heroes) { index, item ->
                         Card(
                             modifier = Modifier
-                                //.scale(opacity)
-                                .height(500.dp)
-                                .width(260.dp),
+                                .height(dimensionResource(R.dimen.height_card))
+                                .width(dimensionResource(R.dimen.width_card)),
                             onClick = {onCardClick(index)}
 
                         ) {
@@ -104,15 +104,15 @@ fun MainScreen(
                                 AsyncImage(
                                     model = stringResource(item.picture),
                                     contentDescription = stringResource(item.name),
-                                    contentScale = ContentScale.FillBounds
+                                    contentScale = ContentScale.Crop
                                 )
                                 Text(
                                     text = stringResource(item.name),
-                                    color = Color.White,
-                                    fontSize = 25.sp,
-                                    fontWeight = FontWeight.Bold,
-                                    modifier = Modifier.padding(start=30.dp, top=400.dp)
-                                )
+                                    color = MaterialTheme.colorScheme.tertiary,
+                                    style = MaterialTheme.typography.titleLarge,
+                                    modifier = Modifier.padding(
+                                        start=dimensionResource(R.dimen.padding_name_start),
+                                        top=dimensionResource(R.dimen.padding_name_top)))
                             }
                         }
                     }

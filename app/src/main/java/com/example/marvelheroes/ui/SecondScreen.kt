@@ -11,6 +11,7 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
@@ -19,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.PointerIcon.Companion.Text
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -41,34 +43,32 @@ fun SecondScreen(
             model = stringResource(hero.picture),
             contentDescription = stringResource(hero.name),
             modifier = Modifier.fillMaxSize(),
-            contentScale = ContentScale.FillBounds
+            contentScale = ContentScale.Crop
         )
         Column(
             verticalArrangement = Arrangement.Bottom,
             modifier = Modifier.fillMaxSize()
         ) {
+
             Text(
                 text = stringResource(hero.name),
-                fontSize = 40.sp,
-                fontWeight = FontWeight.Bold,
-                color = Color.White,
+                style = MaterialTheme.typography.titleLarge,
+                color = MaterialTheme.colorScheme.tertiary,
                 modifier = Modifier.padding(
-                    start = 17.dp,
-                    end = 15.dp,
-                    bottom = 10.dp
+                    start = dimensionResource(R.dimen.padding_start_text),
+                    bottom = dimensionResource(R.dimen.padding_bot_name)
                 ),
             )
+
             Text(
                 text = stringResource(hero.description),
-                fontSize = 25.sp,
-                color = Color.White,
-                lineHeight = 25.sp,
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.tertiary,
                 modifier = Modifier.padding(
-                    start = 17.dp,
-                    end = 15.dp,
-                    bottom = 20.dp
+                    start = dimensionResource(R.dimen.padding_start_text),
+                    end = dimensionResource(R.dimen.padding_end_text),
+                    bottom = dimensionResource(R.dimen.padding_bot_desc)
                 )
-
             )
         }
 
@@ -97,7 +97,7 @@ fun AppBar(
                 IconButton(onClick = navigateUp) {
                     Icon(
                         imageVector = Icons.Filled.ArrowBack,
-                        tint = Color.White,
+                        tint = MaterialTheme.colorScheme.tertiary,
                         contentDescription = stringResource(R.string.back_button)
                     )
                 }
