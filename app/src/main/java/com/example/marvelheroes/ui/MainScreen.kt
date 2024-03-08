@@ -128,20 +128,17 @@ fun FilledTriangle(fillColor: Color) {
         val width = size.width
         val height = size.height
 
-        // Координаты вершин треугольника
         val point1 = Offset(0f, height)
         val point2 = Offset(width, height/2)
         val point3 = Offset(size.width, height)
 
-        // Создаем путь для треугольника
         val path = Path().apply {
             moveTo(point1.x, point1.y)
             lineTo(point2.x, point2.y)
             lineTo(point3.x, point3.y)
-            close() // Закрываем путь
+            close()
         }
 
-        // Рисуем треугольник с заливкой выбранным цветом
         drawPath(
             path = path,
             color = fillColor,
