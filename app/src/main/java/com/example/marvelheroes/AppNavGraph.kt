@@ -11,8 +11,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.marvelheroes.data.DataSource
-import com.example.marvelheroes.ui.MainScreen
-import com.example.marvelheroes.ui.SecondScreen
+import com.example.marvelheroes.ui.mainscreen.MainScreen
+import com.example.marvelheroes.ui.secondscreen.SecondScreen
 import com.example.marvelheroes.ui.SelectViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 
@@ -22,7 +22,7 @@ enum class AppRoutes {
 }
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun MarvelHeroesApp(
+fun AppNavGraph(
     viewModel: SelectViewModel = viewModel(),
     navController: NavHostController = rememberNavController()
 ) {
