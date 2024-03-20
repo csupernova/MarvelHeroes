@@ -1,4 +1,4 @@
-package com.example.marvelheroes.ui.mainscreen
+package com.example.marvelheroes.ui.components
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.height
@@ -16,19 +16,24 @@ import androidx.compose.ui.res.stringResource
 import coil.compose.AsyncImage
 import com.example.marvelheroes.R
 import com.example.marvelheroes.data.InfoHeroes
+import com.example.marvelheroes.ui.SelectViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HeroCard(
     index: Int,
     item: InfoHeroes,
-    onCardClick: (Int) -> Unit
+    onCardClick: (Int) -> Unit,
+    selectViewModel: SelectViewModel
 ) {
     Card(
         modifier = Modifier
             .height(dimensionResource(R.dimen.height_card))
             .width(dimensionResource(R.dimen.width_card)),
-        onClick = {onCardClick(index)}
+        onClick = {
+            selectViewModel.setCard(index)
+            onCardClick(index)
+        }
 
     ) {
         Box {

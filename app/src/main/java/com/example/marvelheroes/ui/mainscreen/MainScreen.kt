@@ -33,6 +33,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import com.example.marvelheroes.R
 import com.example.marvelheroes.data.InfoHeroes
+import com.example.marvelheroes.ui.SelectViewModel
+import com.example.marvelheroes.ui.components.HeroCard
 
 
 @SuppressLint("UnusedBoxWithConstraintsScope")
@@ -42,6 +44,7 @@ fun MainScreen(
     heroes: List<InfoHeroes>,
     onCardClick: (Int) -> Unit,
     modifier: Modifier = Modifier,
+    selectViewModel: SelectViewModel
 ) {
     Surface(
         modifier = modifier,
@@ -88,7 +91,7 @@ fun MainScreen(
                     modifier = Modifier.fillMaxSize()
                 ) {
                     itemsIndexed(heroes) { index, item ->
-                        HeroCard(index, item, onCardClick)
+                        HeroCard(index, item, onCardClick, selectViewModel)
                     }
                 }
             }

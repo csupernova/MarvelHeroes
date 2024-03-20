@@ -22,8 +22,9 @@ import com.example.marvelheroes.ui.components.AppBar
 fun SecondScreen(
     hero: InfoHeroes,
     canNavigateBack: Boolean,
-    navigateUp: () -> Unit
+    navigateUp: () -> Unit,
 ) {
+
     Box(modifier = Modifier.fillMaxSize()) {
         AsyncImage(
             model = stringResource(hero.picture),

@@ -3,8 +3,6 @@ package com.example.marvelheroes
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -20,32 +18,31 @@ enum class AppRoutes {
     Start,
     Detailed
 }
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "StateFlowValueCalledInComposition")
 @Composable
 fun AppNavGraph(
-    viewModel: SelectViewModel = viewModel(),
     navController: NavHostController = rememberNavController()
 ) {
-    val uiState by viewModel.uiState.collectAsState()
+    val selectViewModel: SelectViewModel = viewModel()
 
     NavHost(
         navController = navController,
-        startDestination = AppRoutes.Start.name,
-        ) {
+        startDestination = AppRoutes.Start.name
+    ) {
         composable(route=AppRoutes.Start.name) {
             MainScreen(
-                onCardClick = {
-                    viewModel.setCard(it)
-                    navController.navigate(AppRoutes.Detailed.name) },
+                onCardClick = { navController.navigate(AppRoutes.Detailed.name) },
                 modifier = Modifier.fillMaxSize(),
-                heroes = DataSource.heroes
+                heroes = DataSource.heroes,
+                selectViewModel = selectViewModel
             )
         }
         composable(route=AppRoutes.Detailed.name) {
             SecondScreen(
-                hero = DataSource.heroes[uiState.indexSelected],
+                hero = DataSource.heroes[selectViewModel.uiState.value.indexSelected],
                 canNavigateBack = navController.previousBackStackEntry != null,
-                navigateUp = { navController.navigateUp() })
+                navigateUp = { navController.navigateUp() },
+            )
         }
     }
 }
