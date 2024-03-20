@@ -32,19 +32,19 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import com.example.marvelheroes.R
-import com.example.marvelheroes.data.InfoHeroes
+import com.example.marvelheroes.network.model.Hero
+import com.example.marvelheroes.ui.MainScreenUiState
 import com.example.marvelheroes.ui.SelectViewModel
 import com.example.marvelheroes.ui.components.HeroCard
 
 
 @SuppressLint("UnusedBoxWithConstraintsScope")
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun MainScreen(
-    heroes: List<InfoHeroes>,
-    onCardClick: (Int) -> Unit,
+    onCardClick: (Pair<Int, String>) -> Unit,
     modifier: Modifier = Modifier,
-    selectViewModel: SelectViewModel
+    selectViewModel: SelectViewModel,
+    mainScreenUiState: MainScreenUiState
 ) {
     Surface(
         modifier = modifier,
@@ -52,50 +52,51 @@ fun MainScreen(
     ) {
         FilledTriangle(MaterialTheme.colorScheme.secondary)
 
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-
-            val lazyListState = rememberLazyListState()
-            val flingBehavior = rememberSnapFlingBehavior(lazyListState = lazyListState)
-
-            Box(modifier = Modifier.padding(top=dimensionResource(R.dimen.padding_large))
-            ) {
-                Image(
-                    contentDescription = null,
-                    painter = painterResource(R.drawable.logo_marvel),
-                    modifier = Modifier
-                        .size(
-                            width = dimensionResource(R.dimen.width_logo),
-                            height = dimensionResource(R.dimen.height_logo))
+        when (mainScreenUiState) {
+            is MainScreenUiState.Loading -> LoadingScreen(modifier = Modifier.fillMaxSize())
+            is MainScreenUiState.Success ->
+                ResultScreen(
+                    heroes = mainScreenUiState.heroes,
+                    onCardClick = onCardClick,
+                    selectViewModel = selectViewModel
                 )
-            }
-            Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_large)))
-
-            Text(
-                text = stringResource(R.string.title),
-                color = MaterialTheme.colorScheme.tertiary,
-                style = MaterialTheme.typography.titleLarge
-            )
-
-            BoxWithConstraints {
-                LazyRow(
-                    verticalAlignment = Alignment.CenterVertically,
-                    state = lazyListState,
-                    flingBehavior = flingBehavior,
-                    contentPadding = PaddingValues(
-                        start = dimensionResource(R.dimen.padding_lazyrow),
-                        end = dimensionResource(R.dimen.padding_lazyrow)
-                    ),
-                    horizontalArrangement = Arrangement.spacedBy(
-                        dimensionResource(R.dimen.padding_btwn_cards)
-                    ),
-                    modifier = Modifier.fillMaxSize()
-                ) {
-                    itemsIndexed(heroes) { index, item ->
-                        HeroCard(index, item, onCardClick, selectViewModel)
-                    }
-                }
-            }
+            is MainScreenUiState.Error -> ErrorScreen(modifier = Modifier.fillMaxSize())
         }
+    }
+}
+
+@Composable
+fun ResultScreen(
+    heroes: List<Hero>,
+    modifier: Modifier = Modifier,
+    onCardClick: (Pair<Int, String>) -> Unit,
+    selectViewModel: SelectViewModel
+) {
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = modifier
+    ) {
+        FirstScreen(
+            heroes = heroes,
+            onCardClick = onCardClick,
+            selectViewModel = selectViewModel
+        )
+    }
+}
+@Composable
+fun LoadingScreen(modifier: Modifier = Modifier) {
+    Text(
+        "loading"
+    )
+}
+@Composable
+fun ErrorScreen(modifier: Modifier = Modifier) {
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(text = "error")
     }
 }
 
@@ -120,5 +121,60 @@ private fun FilledTriangle(fillColor: Color) {
             path = path,
             color = fillColor,
         )
+    }
+}
+
+@SuppressLint("UnusedBoxWithConstraintsScope")
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+fun FirstScreen(
+    heroes: List<Hero>,
+    onCardClick: (Pair<Int, String>) -> Unit,
+    modifier: Modifier = Modifier,
+    selectViewModel: SelectViewModel,
+) {
+    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+
+        val lazyListState = rememberLazyListState()
+        val flingBehavior = rememberSnapFlingBehavior(lazyListState = lazyListState)
+
+        Box(modifier = Modifier.padding(top=dimensionResource(R.dimen.padding_large))
+        ) {
+            Image(
+                contentDescription = null,
+                painter = painterResource(R.drawable.logo_marvel),
+                modifier = Modifier
+                    .size(
+                        width = dimensionResource(R.dimen.width_logo),
+                        height = dimensionResource(R.dimen.height_logo))
+            )
+        }
+        Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_large)))
+
+        Text(
+            text = stringResource(R.string.title),
+            color = MaterialTheme.colorScheme.tertiary,
+            style = MaterialTheme.typography.titleLarge
+        )
+
+        BoxWithConstraints {
+            LazyRow(
+                verticalAlignment = Alignment.CenterVertically,
+                state = lazyListState,
+                flingBehavior = flingBehavior,
+                contentPadding = PaddingValues(
+                    start = dimensionResource(R.dimen.padding_lazyrow),
+                    end = dimensionResource(R.dimen.padding_lazyrow)
+                ),
+                horizontalArrangement = Arrangement.spacedBy(
+                    dimensionResource(R.dimen.padding_btwn_cards)
+                ),
+                modifier = Modifier.fillMaxSize()
+            ) {
+                itemsIndexed(heroes) { index, item ->
+                    HeroCard(index, item, onCardClick, selectViewModel)
+                }
+            }
+        }
     }
 }

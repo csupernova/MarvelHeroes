@@ -13,6 +13,9 @@ import com.example.marvelheroes.ui.mainscreen.MainScreen
 import com.example.marvelheroes.ui.secondscreen.SecondScreen
 import com.example.marvelheroes.ui.SelectViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.marvelheroes.ui.MainScreenViewModel
+import com.example.marvelheroes.ui.SecondScreenViewModel
+import kotlinx.coroutines.selects.select
 
 enum class AppRoutes {
     Start,
@@ -24,6 +27,7 @@ fun AppNavGraph(
     navController: NavHostController = rememberNavController()
 ) {
     val selectViewModel: SelectViewModel = viewModel()
+    val mainScreenViewModel: MainScreenViewModel = viewModel()
 
     NavHost(
         navController = navController,
@@ -33,13 +37,13 @@ fun AppNavGraph(
             MainScreen(
                 onCardClick = { navController.navigate(AppRoutes.Detailed.name) },
                 modifier = Modifier.fillMaxSize(),
-                heroes = DataSource.heroes,
-                selectViewModel = selectViewModel
+                selectViewModel = selectViewModel,
+                mainScreenUiState = mainScreenViewModel.mainScreenUiState
             )
         }
         composable(route=AppRoutes.Detailed.name) {
             SecondScreen(
-                hero = DataSource.heroes[selectViewModel.uiState.value.indexSelected],
+                selectViewModel = selectViewModel,
                 canNavigateBack = navController.previousBackStackEntry != null,
                 navigateUp = { navController.navigateUp() },
             )
