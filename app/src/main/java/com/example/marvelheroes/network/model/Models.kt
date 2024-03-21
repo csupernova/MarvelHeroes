@@ -116,10 +116,3 @@ data class Url(
     val type: String,
     val url: String,
 )
-
-data class Hero(
-    val id: String,
-    val name: String,
-    val description: String,
-    val picture: String
-)

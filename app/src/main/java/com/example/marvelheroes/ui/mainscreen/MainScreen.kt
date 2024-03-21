@@ -31,6 +31,7 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import com.example.marvelheroes.R
 import com.example.marvelheroes.network.model.Hero
 import com.example.marvelheroes.ui.MainScreenUiState
@@ -85,8 +86,10 @@ fun ResultScreen(
 }
 @Composable
 fun LoadingScreen(modifier: Modifier = Modifier) {
-    Text(
-        "loading"
+    Image(
+        modifier = modifier.size(200.dp),
+        painter = painterResource(R.drawable.loading_img),
+        contentDescription = stringResource(R.string.loading)
     )
 }
 @Composable
@@ -96,7 +99,11 @@ fun ErrorScreen(modifier: Modifier = Modifier) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = "error")
+        Image(
+            painter = painterResource(id = R.drawable.ic_connection_error),
+            contentDescription = stringResource(R.string.connection_error)
+        )
+        Text(text = stringResource(R.string.failed_to_load), modifier = Modifier.padding(16.dp))
     }
 }
 

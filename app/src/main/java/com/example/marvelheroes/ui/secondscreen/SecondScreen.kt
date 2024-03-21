@@ -12,13 +12,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.painterResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.example.marvelheroes.R
-import com.example.marvelheroes.data.InfoHeroes
 import com.example.marvelheroes.network.model.Hero
-import com.example.marvelheroes.ui.MainScreenUiState
 import com.example.marvelheroes.ui.SecondScreenUiState
 import com.example.marvelheroes.ui.SecondScreenViewModel
 import com.example.marvelheroes.ui.SelectViewModel
@@ -35,10 +33,9 @@ fun SecondScreen(
     navigateUp: () -> Unit,
 ) {
     val secondScreenViewModel: SecondScreenViewModel = viewModel()
-    secondScreenViewModel.getMarvelInfoHero(selectViewModel.uiState.value.indexHero)
-    val secondScreenUiState = secondScreenViewModel.secondScreenUiState
+    secondScreenViewModel.getMarvelInfoHero(selectViewModel.uiState.value.heroId)
 
-    when (secondScreenUiState) {
+    when (val secondScreenUiState = secondScreenViewModel.secondScreenUiState) {
         is SecondScreenUiState.Loading -> LoadingScreen(modifier = Modifier.fillMaxSize())
         is SecondScreenUiState.Success ->
             ResultScreen(
@@ -60,6 +57,8 @@ fun ResultScreen(
     Box(modifier = Modifier.fillMaxSize()) {
         AsyncImage(
             model = hero.picture,
+            error = painterResource(R.drawable.ic_broken_image),
+            placeholder = painterResource(R.drawable.loading_img),
             contentDescription = hero.name,
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop

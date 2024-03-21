@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.marvelheroes.network.MarvelApi
 import com.example.marvelheroes.network.model.Hero
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
 import java.io.IOException
 
 class MainScreenViewModel: ViewModel() {
@@ -34,6 +35,8 @@ class MainScreenViewModel: ViewModel() {
                 }
                 MainScreenUiState.Success(listResult)
             } catch (e: IOException) {
+                MainScreenUiState.Error
+            } catch (e: HttpException) {
                 MainScreenUiState.Error
             }
         }

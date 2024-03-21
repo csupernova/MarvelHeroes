@@ -14,11 +14,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.painterResource
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.marvelheroes.R
-import com.example.marvelheroes.data.InfoHeroes
 import com.example.marvelheroes.network.model.Hero
 import com.example.marvelheroes.ui.SelectViewModel
 
@@ -38,7 +37,6 @@ fun HeroCard(
             selectViewModel.setCard(index, item.id)
             onCardClick(Pair(index, item.id))
         }
-
     ) {
         Box(modifier = Modifier.fillMaxSize()) {
             AsyncImage(
@@ -46,6 +44,8 @@ fun HeroCard(
                     .data(item.picture)
                     .crossfade(true)
                     .build(),
+                error = painterResource(R.drawable.ic_broken_image),
+                placeholder = painterResource(R.drawable.loading_img),
                 contentDescription = item.name,
                 contentScale = ContentScale.Crop
             )

@@ -8,14 +8,11 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.marvelheroes.data.DataSource
 import com.example.marvelheroes.ui.mainscreen.MainScreen
 import com.example.marvelheroes.ui.secondscreen.SecondScreen
 import com.example.marvelheroes.ui.SelectViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.marvelheroes.ui.MainScreenViewModel
-import com.example.marvelheroes.ui.SecondScreenViewModel
-import kotlinx.coroutines.selects.select
 
 enum class AppRoutes {
     Start,

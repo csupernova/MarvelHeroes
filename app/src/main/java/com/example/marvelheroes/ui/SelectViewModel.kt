@@ -15,7 +15,7 @@ class SelectViewModel: ViewModel() {
         _uiState.update { currentState ->
             currentState.copy(
                 indexSelected = indexCard,
-                indexHero = indexHero
+                heroId = indexHero
             )
         }
     }
