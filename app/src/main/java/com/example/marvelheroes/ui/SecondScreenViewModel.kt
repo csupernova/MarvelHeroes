@@ -6,7 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.marvelheroes.network.MarvelApi
-import com.example.marvelheroes.network.model.Hero
+import com.example.marvelheroes.network.models.Hero
 import kotlinx.coroutines.launch
 import java.io.IOException
 

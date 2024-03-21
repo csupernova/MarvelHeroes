@@ -1,4 +1,4 @@
-package com.example.marvelheroes.network.model
+package com.example.marvelheroes.network.models
 
 data class Hero(
     val id: String,

@@ -18,7 +18,7 @@ import androidx.compose.ui.res.painterResource
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.marvelheroes.R
-import com.example.marvelheroes.network.model.Hero
+import com.example.marvelheroes.network.models.Hero
 import com.example.marvelheroes.ui.SelectViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -26,7 +26,7 @@ import com.example.marvelheroes.ui.SelectViewModel
 fun HeroCard(
     index: Int,
     item: Hero,
-    onCardClick: (Pair<Int, String>) -> Unit,
+    onCardClick: (String) -> Unit,
     selectViewModel: SelectViewModel
 ) {
     Card(
@@ -34,8 +34,8 @@ fun HeroCard(
             .height(dimensionResource(R.dimen.height_card))
             .width(dimensionResource(R.dimen.width_card)),
         onClick = {
-            selectViewModel.setCard(index, item.id)
-            onCardClick(Pair(index, item.id))
+            selectViewModel.setCard(item.id)
+            onCardClick(item.id)
         }
     ) {
         Box(modifier = Modifier.fillMaxSize()) {

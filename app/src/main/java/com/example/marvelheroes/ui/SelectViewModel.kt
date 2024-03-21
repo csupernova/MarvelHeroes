@@ -11,11 +11,10 @@ class SelectViewModel: ViewModel() {
     private val _uiState = MutableStateFlow(SelectedCardUiState())
     val uiState: StateFlow<SelectedCardUiState> = _uiState.asStateFlow()
 
-    fun setCard(indexCard: Int, indexHero: String) {
+    fun setCard(heroId: String) {
         _uiState.update { currentState ->
             currentState.copy(
-                indexSelected = indexCard,
-                heroId = indexHero
+                heroId = heroId
             )
         }
     }

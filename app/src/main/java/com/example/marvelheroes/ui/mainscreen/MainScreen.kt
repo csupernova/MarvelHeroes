@@ -31,18 +31,19 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import com.example.marvelheroes.R
-import com.example.marvelheroes.network.model.Hero
+import com.example.marvelheroes.network.models.Hero
 import com.example.marvelheroes.ui.MainScreenUiState
 import com.example.marvelheroes.ui.SelectViewModel
+import com.example.marvelheroes.ui.components.ErrorScreen
 import com.example.marvelheroes.ui.components.HeroCard
+import com.example.marvelheroes.ui.components.LoadingScreen
 
 
 @SuppressLint("UnusedBoxWithConstraintsScope")
 @Composable
 fun MainScreen(
-    onCardClick: (Pair<Int, String>) -> Unit,
+    onCardClick: (String) -> Unit,
     modifier: Modifier = Modifier,
     selectViewModel: SelectViewModel,
     mainScreenUiState: MainScreenUiState
@@ -70,7 +71,7 @@ fun MainScreen(
 fun ResultScreen(
     heroes: List<Hero>,
     modifier: Modifier = Modifier,
-    onCardClick: (Pair<Int, String>) -> Unit,
+    onCardClick: (String) -> Unit,
     selectViewModel: SelectViewModel
 ) {
     Box(
@@ -84,59 +85,13 @@ fun ResultScreen(
         )
     }
 }
-@Composable
-fun LoadingScreen(modifier: Modifier = Modifier) {
-    Image(
-        modifier = modifier.size(200.dp),
-        painter = painterResource(R.drawable.loading_img),
-        contentDescription = stringResource(R.string.loading)
-    )
-}
-@Composable
-fun ErrorScreen(modifier: Modifier = Modifier) {
-    Column(
-        modifier = modifier,
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Image(
-            painter = painterResource(id = R.drawable.ic_connection_error),
-            contentDescription = stringResource(R.string.connection_error)
-        )
-        Text(text = stringResource(R.string.failed_to_load), modifier = Modifier.padding(16.dp))
-    }
-}
-
-@Composable
-private fun FilledTriangle(fillColor: Color) {
-    Canvas(modifier = Modifier.fillMaxSize()) {
-        val width = size.width
-        val height = size.height
-
-        val point1 = Offset(0f, height)
-        val point2 = Offset(width, height/2)
-        val point3 = Offset(size.width, height)
-
-        val path = Path().apply {
-            moveTo(point1.x, point1.y)
-            lineTo(point2.x, point2.y)
-            lineTo(point3.x, point3.y)
-            close()
-        }
-
-        drawPath(
-            path = path,
-            color = fillColor,
-        )
-    }
-}
 
 @SuppressLint("UnusedBoxWithConstraintsScope")
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun FirstScreen(
     heroes: List<Hero>,
-    onCardClick: (Pair<Int, String>) -> Unit,
+    onCardClick: (String) -> Unit,
     modifier: Modifier = Modifier,
     selectViewModel: SelectViewModel,
 ) {
@@ -145,7 +100,7 @@ fun FirstScreen(
         val lazyListState = rememberLazyListState()
         val flingBehavior = rememberSnapFlingBehavior(lazyListState = lazyListState)
 
-        Box(modifier = Modifier.padding(top=dimensionResource(R.dimen.padding_large))
+        Box(modifier = modifier.padding(top=dimensionResource(R.dimen.padding_large))
         ) {
             Image(
                 contentDescription = null,
@@ -183,5 +138,29 @@ fun FirstScreen(
                 }
             }
         }
+    }
+}
+
+@Composable
+private fun FilledTriangle(fillColor: Color) {
+    Canvas(modifier = Modifier.fillMaxSize()) {
+        val width = size.width
+        val height = size.height
+
+        val point1 = Offset(0f, height)
+        val point2 = Offset(width, height/2)
+        val point3 = Offset(size.width, height)
+
+        val path = Path().apply {
+            moveTo(point1.x, point1.y)
+            lineTo(point2.x, point2.y)
+            lineTo(point3.x, point3.y)
+            close()
+        }
+
+        drawPath(
+            path = path,
+            color = fillColor,
+        )
     }
 }

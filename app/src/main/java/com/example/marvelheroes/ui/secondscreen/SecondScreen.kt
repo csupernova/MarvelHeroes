@@ -16,13 +16,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.example.marvelheroes.R
-import com.example.marvelheroes.network.model.Hero
+import com.example.marvelheroes.network.models.Hero
 import com.example.marvelheroes.ui.SecondScreenUiState
 import com.example.marvelheroes.ui.SecondScreenViewModel
 import com.example.marvelheroes.ui.SelectViewModel
 import com.example.marvelheroes.ui.components.AppBar
-import com.example.marvelheroes.ui.mainscreen.ErrorScreen
-import com.example.marvelheroes.ui.mainscreen.LoadingScreen
+import com.example.marvelheroes.ui.components.ErrorScreen
+import com.example.marvelheroes.ui.components.LoadingScreen
 
 
 @SuppressLint("StateFlowValueCalledInComposition")

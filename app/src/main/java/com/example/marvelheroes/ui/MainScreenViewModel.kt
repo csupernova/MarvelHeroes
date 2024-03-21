@@ -6,7 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.marvelheroes.network.MarvelApi
-import com.example.marvelheroes.network.model.Hero
+import com.example.marvelheroes.network.models.Hero
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.io.IOException
@@ -20,7 +20,7 @@ class MainScreenViewModel: ViewModel() {
     }
     fun getMarvelHeroes() {
         viewModelScope.launch {
-            mainScreenUiState = try {
+            //mainScreenUiState = try {
                 val result = MarvelApi.retrofitService.getHeroes()
                 val listResult = mutableListOf<Hero>()
                 for (elem in result.data.results) {
@@ -33,12 +33,12 @@ class MainScreenViewModel: ViewModel() {
                         )
                     )
                 }
-                MainScreenUiState.Success(listResult)
-            } catch (e: IOException) {
-                MainScreenUiState.Error
-            } catch (e: HttpException) {
-                MainScreenUiState.Error
-            }
+            mainScreenUiState = MainScreenUiState.Success(listResult)
+            //} catch (e: IOException) {
+             //   MainScreenUiState.Error
+            //} catch (e: HttpException) {
+             //   MainScreenUiState.Error
+           // }
         }
     }
 }

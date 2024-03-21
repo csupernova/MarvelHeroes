@@ -1,10 +1,10 @@
-package com.example.marvelheroes.network.model
+package com.example.marvelheroes.network.models
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Root(
+data class GetHeroes(
     val code: Long,
     val status: String,
     val copyright: String,
