@@ -24,7 +24,6 @@ import com.example.marvelheroes.ui.SelectViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HeroCard(
-    index: Int,
     item: Hero,
     onCardClick: (String) -> Unit,
     selectViewModel: SelectViewModel
@@ -47,7 +46,8 @@ fun HeroCard(
                 error = painterResource(R.drawable.ic_broken_image),
                 placeholder = painterResource(R.drawable.loading_img),
                 contentDescription = item.name,
-                contentScale = ContentScale.Crop
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.fillMaxSize()
             )
             Text(
                 text = item.name,

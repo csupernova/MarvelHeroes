@@ -38,17 +38,21 @@ fun SecondScreen(
     when (val secondScreenUiState = secondScreenViewModel.secondScreenUiState) {
         is SecondScreenUiState.Loading -> LoadingScreen(modifier = Modifier.fillMaxSize())
         is SecondScreenUiState.Success ->
-            ResultScreen(
+            ResultSecondScreen(
                 hero = secondScreenUiState.hero,
                 canNavigateBack = canNavigateBack,
                 navigateUp = navigateUp,
             )
-        is SecondScreenUiState.Error -> ErrorScreen(modifier = Modifier.fillMaxSize())
+        is SecondScreenUiState.Error -> ErrorScreen(
+            modifier = Modifier.fillMaxSize(),
+            canNavigateBack = canNavigateBack,
+            navigateUp = navigateUp
+        )
     }
 }
 
 @Composable
-fun ResultScreen(
+fun ResultSecondScreen(
     hero: Hero,
     canNavigateBack: Boolean,
     navigateUp: () -> Unit,

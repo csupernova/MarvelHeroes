@@ -57,7 +57,7 @@ fun MainScreen(
         when (mainScreenUiState) {
             is MainScreenUiState.Loading -> LoadingScreen(modifier = Modifier.fillMaxSize())
             is MainScreenUiState.Success ->
-                ResultScreen(
+                ResultMainScreen(
                     heroes = mainScreenUiState.heroes,
                     onCardClick = onCardClick,
                     selectViewModel = selectViewModel
@@ -68,7 +68,7 @@ fun MainScreen(
 }
 
 @Composable
-fun ResultScreen(
+fun ResultMainScreen(
     heroes: List<Hero>,
     modifier: Modifier = Modifier,
     onCardClick: (String) -> Unit,
@@ -133,8 +133,8 @@ fun FirstScreen(
                 ),
                 modifier = Modifier.fillMaxSize()
             ) {
-                itemsIndexed(heroes) { index, item ->
-                    HeroCard(index, item, onCardClick, selectViewModel)
+                itemsIndexed(heroes) { _, item ->
+                    HeroCard(item, onCardClick, selectViewModel)
                 }
             }
         }

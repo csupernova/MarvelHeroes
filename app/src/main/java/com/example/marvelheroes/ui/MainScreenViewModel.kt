@@ -20,7 +20,7 @@ class MainScreenViewModel: ViewModel() {
     }
     fun getMarvelHeroes() {
         viewModelScope.launch {
-            //mainScreenUiState = try {
+            mainScreenUiState = try {
                 val result = MarvelApi.retrofitService.getHeroes()
                 val listResult = mutableListOf<Hero>()
                 for (elem in result.data.results) {
@@ -33,12 +33,12 @@ class MainScreenViewModel: ViewModel() {
                         )
                     )
                 }
-            mainScreenUiState = MainScreenUiState.Success(listResult)
-            //} catch (e: IOException) {
-             //   MainScreenUiState.Error
-            //} catch (e: HttpException) {
-             //   MainScreenUiState.Error
-           // }
+            MainScreenUiState.Success(listResult)
+            } catch (e: IOException) {
+                MainScreenUiState.Error
+            } catch (e: HttpException) {
+                MainScreenUiState.Error
+            }
         }
     }
 }
