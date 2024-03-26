@@ -16,10 +16,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.example.marvelheroes.R
-import com.example.marvelheroes.network.models.Hero
-import com.example.marvelheroes.ui.SecondScreenUiState
-import com.example.marvelheroes.ui.SecondScreenViewModel
-import com.example.marvelheroes.ui.SelectViewModel
+import com.example.marvelheroes.ui.Hero
 import com.example.marvelheroes.ui.components.AppBar
 import com.example.marvelheroes.ui.components.ErrorScreen
 import com.example.marvelheroes.ui.components.LoadingScreen
@@ -28,12 +25,12 @@ import com.example.marvelheroes.ui.components.LoadingScreen
 @SuppressLint("StateFlowValueCalledInComposition")
 @Composable
 fun SecondScreen(
-    selectViewModel: SelectViewModel,
+    characterId: String,
     canNavigateBack: Boolean,
     navigateUp: () -> Unit,
 ) {
     val secondScreenViewModel: SecondScreenViewModel = viewModel()
-    secondScreenViewModel.getMarvelInfoHero(selectViewModel.uiState.value.heroId)
+    secondScreenViewModel.getMarvelInfoHero(characterId)
 
     when (val secondScreenUiState = secondScreenViewModel.secondScreenUiState) {
         is SecondScreenUiState.Loading -> LoadingScreen(modifier = Modifier.fillMaxSize())
@@ -57,8 +54,9 @@ fun ResultSecondScreen(
     canNavigateBack: Boolean,
     navigateUp: () -> Unit,
 
-) {
+    ) {
     Box(modifier = Modifier.fillMaxSize()) {
+
         AsyncImage(
             model = hero.picture,
             error = painterResource(R.drawable.ic_broken_image),
@@ -67,6 +65,7 @@ fun ResultSecondScreen(
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop
         )
+
         Column(
             verticalArrangement = Arrangement.Bottom,
             modifier = Modifier.fillMaxSize()

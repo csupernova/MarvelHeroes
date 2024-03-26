@@ -32,9 +32,7 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import com.example.marvelheroes.R
-import com.example.marvelheroes.network.models.Hero
-import com.example.marvelheroes.ui.MainScreenUiState
-import com.example.marvelheroes.ui.SelectViewModel
+import com.example.marvelheroes.ui.Hero
 import com.example.marvelheroes.ui.components.ErrorScreen
 import com.example.marvelheroes.ui.components.HeroCard
 import com.example.marvelheroes.ui.components.LoadingScreen
@@ -45,7 +43,6 @@ import com.example.marvelheroes.ui.components.LoadingScreen
 fun MainScreen(
     onCardClick: (String) -> Unit,
     modifier: Modifier = Modifier,
-    selectViewModel: SelectViewModel,
     mainScreenUiState: MainScreenUiState
 ) {
     Surface(
@@ -59,8 +56,7 @@ fun MainScreen(
             is MainScreenUiState.Success ->
                 ResultMainScreen(
                     heroes = mainScreenUiState.heroes,
-                    onCardClick = onCardClick,
-                    selectViewModel = selectViewModel
+                    onCardClick = onCardClick
                 )
             is MainScreenUiState.Error -> ErrorScreen(modifier = Modifier.fillMaxSize())
         }
@@ -72,7 +68,6 @@ fun ResultMainScreen(
     heroes: List<Hero>,
     modifier: Modifier = Modifier,
     onCardClick: (String) -> Unit,
-    selectViewModel: SelectViewModel
 ) {
     Box(
         contentAlignment = Alignment.Center,
@@ -81,7 +76,6 @@ fun ResultMainScreen(
         FirstScreen(
             heroes = heroes,
             onCardClick = onCardClick,
-            selectViewModel = selectViewModel
         )
     }
 }
@@ -93,7 +87,6 @@ fun FirstScreen(
     heroes: List<Hero>,
     onCardClick: (String) -> Unit,
     modifier: Modifier = Modifier,
-    selectViewModel: SelectViewModel,
 ) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
 
@@ -134,7 +127,7 @@ fun FirstScreen(
                 modifier = Modifier.fillMaxSize()
             ) {
                 itemsIndexed(heroes) { _, item ->
-                    HeroCard(item, onCardClick, selectViewModel)
+                    HeroCard(item, onCardClick)
                 }
             }
         }

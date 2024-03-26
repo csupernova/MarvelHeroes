@@ -3,7 +3,7 @@ package com.example.marvelheroes.network.models
 import com.squareup.moshi.Json
 
 
-data class GetHeroes(
+data class InfoHeroes(
     val code: Long,
     val status: String,
     val copyright: String,

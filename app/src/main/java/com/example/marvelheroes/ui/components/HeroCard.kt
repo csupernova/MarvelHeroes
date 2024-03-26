@@ -18,22 +18,19 @@ import androidx.compose.ui.res.painterResource
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.marvelheroes.R
-import com.example.marvelheroes.network.models.Hero
-import com.example.marvelheroes.ui.SelectViewModel
+import com.example.marvelheroes.ui.Hero
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HeroCard(
     item: Hero,
     onCardClick: (String) -> Unit,
-    selectViewModel: SelectViewModel
 ) {
     Card(
         modifier = Modifier
             .height(dimensionResource(R.dimen.height_card))
             .width(dimensionResource(R.dimen.width_card)),
         onClick = {
-            selectViewModel.setCard(item.id)
             onCardClick(item.id)
         }
     ) {
