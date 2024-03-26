@@ -1,5 +1,6 @@
 package com.example.marvelheroes.ui.secondscreen
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,34 +12,67 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.painterResource
+import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.example.marvelheroes.R
-import com.example.marvelheroes.data.InfoHeroes
+import com.example.marvelheroes.ui.Hero
 import com.example.marvelheroes.ui.components.AppBar
+import com.example.marvelheroes.ui.components.ErrorScreen
+import com.example.marvelheroes.ui.components.LoadingScreen
 
 
+@SuppressLint("StateFlowValueCalledInComposition")
 @Composable
 fun SecondScreen(
-    hero: InfoHeroes,
+    characterId: String,
     canNavigateBack: Boolean,
     navigateUp: () -> Unit,
 ) {
+    val secondScreenViewModel: SecondScreenViewModel = viewModel()
+    secondScreenViewModel.getMarvelInfoHero(characterId)
 
+    when (val secondScreenUiState = secondScreenViewModel.secondScreenUiState) {
+        is SecondScreenUiState.Loading -> LoadingScreen(modifier = Modifier.fillMaxSize())
+        is SecondScreenUiState.Success ->
+            ResultSecondScreen(
+                hero = secondScreenUiState.hero,
+                canNavigateBack = canNavigateBack,
+                navigateUp = navigateUp,
+            )
+        is SecondScreenUiState.Error -> ErrorScreen(
+            modifier = Modifier.fillMaxSize(),
+            canNavigateBack = canNavigateBack,
+            navigateUp = navigateUp
+        )
+    }
+}
+
+@Composable
+fun ResultSecondScreen(
+    hero: Hero,
+    canNavigateBack: Boolean,
+    navigateUp: () -> Unit,
+
+    ) {
     Box(modifier = Modifier.fillMaxSize()) {
+
         AsyncImage(
-            model = stringResource(hero.picture),
-            contentDescription = stringResource(hero.name),
+            model = hero.picture,
+            error = painterResource(R.drawable.ic_broken_image),
+            placeholder = painterResource(R.drawable.loading_img),
+            contentDescription = hero.name,
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop
         )
+
         Column(
             verticalArrangement = Arrangement.Bottom,
             modifier = Modifier.fillMaxSize()
         ) {
 
             Text(
-                text = stringResource(hero.name),
+                text = hero.name,
                 style = MaterialTheme.typography.titleLarge,
                 color = MaterialTheme.colorScheme.tertiary,
                 modifier = Modifier.padding(
@@ -48,7 +82,7 @@ fun SecondScreen(
             )
 
             Text(
-                text = stringResource(hero.description),
+                text = hero.description,
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.tertiary,
                 modifier = Modifier.padding(

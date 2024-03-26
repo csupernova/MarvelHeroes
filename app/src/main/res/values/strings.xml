@@ -21,4 +21,7 @@
     <string name="back_button">back</string>
     <string name="captain_america_desc">A frail man</string>
     <string name="captain_america_url">https://ltdfoto.ru/images/2024/03/08/cap.jpg</string>
+    <string name="loading">Loading</string>
+    <string name="failed_to_load">Failed to load</string>
+    <string name="connection_error">Connection error</string>
 </resources>
