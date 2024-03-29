@@ -70,4 +70,13 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-savedstate:2.7.0")
     implementation("io.coil-kt:coil-compose:2.6.0")
+
+    implementation("com.squareup.retrofit2:converter-moshi:2.4.0")
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+
+    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
+
+    implementation("io.arrow-kt:arrow-core:1.2.1")
+    implementation("io.arrow-kt:arrow-fx-coroutines:1.2.1")
 }

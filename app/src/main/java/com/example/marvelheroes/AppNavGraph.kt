@@ -8,11 +8,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.marvelheroes.data.DataSource
 import com.example.marvelheroes.ui.mainscreen.MainScreen
 import com.example.marvelheroes.ui.secondscreen.SecondScreen
-import com.example.marvelheroes.ui.SelectViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.marvelheroes.ui.mainscreen.MainScreenViewModel
 
 enum class AppRoutes {
     Start,
@@ -23,7 +22,7 @@ enum class AppRoutes {
 fun AppNavGraph(
     navController: NavHostController = rememberNavController()
 ) {
-    val selectViewModel: SelectViewModel = viewModel()
+    val mainScreenViewModel: MainScreenViewModel = viewModel()
 
     NavHost(
         navController = navController,
@@ -31,15 +30,15 @@ fun AppNavGraph(
     ) {
         composable(route=AppRoutes.Start.name) {
             MainScreen(
-                onCardClick = { navController.navigate(AppRoutes.Detailed.name) },
+                onCardClick = { navController.navigate("${AppRoutes.Detailed.name}/$it") },
                 modifier = Modifier.fillMaxSize(),
-                heroes = DataSource.heroes,
-                selectViewModel = selectViewModel
+                mainScreenUiState = mainScreenViewModel.mainScreenUiState
             )
         }
-        composable(route=AppRoutes.Detailed.name) {
+        composable(route="${AppRoutes.Detailed.name}/{characterId}") {
+            val characterId = it.arguments?.getString("characterId") ?: ""
             SecondScreen(
-                hero = DataSource.heroes[selectViewModel.uiState.value.indexSelected],
+                characterId = characterId,
                 canNavigateBack = navController.previousBackStackEntry != null,
                 navigateUp = { navController.navigateUp() },
             )
