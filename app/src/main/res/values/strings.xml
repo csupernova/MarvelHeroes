@@ -1,3 +1,24 @@
 <resources>
     <string name="app_name">MarvelHeroes</string>
+    <string name="title">Choose your hero</string>
+    <string name="iron_man">Iron Man</string>
+    <string name="deadpool">Deadpool</string>
+    <string name="spiderman">Spiderman</string>
+    <string name="captain_america">Captain America</string>
+    <string name="doctor_strange">Doctor Strange</string>
+    <string name="thor">Thor</string>
+    <string name="thor_desc">A hammer-wielding god</string>
+    <string name="thor_url">https://ltdfoto.ru/images/2024/03/08/wp4395007.jpg</string>
+    <string name="thanos">Thanos</string>
+    <string name="thanos_desc">A genocidal warlord</string>
+    <string name="thanos_url">https://i.ibb.co/ScnNtty/image.png</string>
+    <string name="iron_man_desc">I AM IRON MAN</string>
+    <string name="deadpool_desc">Please don’t make the super suit green...or animated!</string>
+    <string name="spiderman_desc">In iron suit</string>
+    <string name="iron_man_url">https://ltdfoto.ru/images/2024/03/08/iron-man.jpg</string>
+    <string name="deadpool_url">https://iili.io/JMnAfIV.png</string>
+    <string name="spiderman_url">https://iili.io/JMnuyB9.png</string>
+    <string name="back_button">back</string>
+    <string name="captain_america_desc">A frail man</string>
+    <string name="captain_america_url">https://ltdfoto.ru/images/2024/03/08/cap.jpg</string>
 </resources>

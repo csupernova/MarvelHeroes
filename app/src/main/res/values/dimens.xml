@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="padding_large">40dp</dimen>
+    <dimen name="width_logo">150dp</dimen>
+    <dimen name="height_logo">40dp</dimen>
+    <dimen name="padding_lazyrow">65dp</dimen>
+    <dimen name="padding_btwn_cards">30dp</dimen>
+    <dimen name="width_card">286dp</dimen>
+    <dimen name="height_card">535dp</dimen>
+    <dimen name="padding_name_start">24dp</dimen>
+    <dimen name="padding_name_top">435dp</dimen>
+    <dimen name="padding_start_text">25dp</dimen>
+    <dimen name="padding_end_text">20dp</dimen>
+    <dimen name="padding_bot_name">10dp</dimen>
+    <dimen name="padding_bot_desc">20dp</dimen>
+    <dimen name="font_title_size">30sp</dimen>
+</resources>
