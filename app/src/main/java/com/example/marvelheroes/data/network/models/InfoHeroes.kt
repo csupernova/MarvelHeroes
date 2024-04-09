@@ -1,4 +1,4 @@
-package com.example.marvelheroes.network.models
+package com.example.marvelheroes.data.network.models
 
 import com.squareup.moshi.Json
 

@@ -1,8 +1,8 @@
-package com.example.marvelheroes.network
+package com.example.marvelheroes.data.network
 
-import com.example.marvelheroes.network.eitherHandler.EitherCallAdapterFactory
-import com.example.marvelheroes.network.interceptors.ParametersInterceptor
-import com.example.marvelheroes.network.interceptors.logsInterceptor
+import com.example.marvelheroes.data.network.eitherHandler.EitherCallAdapterFactory
+import com.example.marvelheroes.data.network.interceptors.ParametersInterceptor
+import com.example.marvelheroes.data.network.interceptors.logsInterceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -22,7 +22,7 @@ private val retrofit = Retrofit.Builder()
     .build()
 
 object MarvelApi {
-    val retrofitService:MarvelApiService by lazy {
+    val retrofitService: MarvelApiService by lazy {
         retrofit.create(MarvelApiService::class.java)
     }
 }

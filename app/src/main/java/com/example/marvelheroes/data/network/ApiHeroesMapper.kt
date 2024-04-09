@@ -1,7 +1,7 @@
-package com.example.marvelheroes.network
+package com.example.marvelheroes.data.network
 
 import com.example.marvelheroes.ui.Hero
-import com.example.marvelheroes.network.models.Result
+import com.example.marvelheroes.data.network.models.Result
 
 class ApiHeroesMapper {
     companion object {

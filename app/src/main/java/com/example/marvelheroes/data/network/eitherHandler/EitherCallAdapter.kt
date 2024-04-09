@@ -1,7 +1,7 @@
-package com.example.marvelheroes.network.eitherHandler
+package com.example.marvelheroes.data.network.eitherHandler
 
 import arrow.core.Either
-import com.example.marvelheroes.network.ApiError
+import com.example.marvelheroes.data.network.ApiError
 import retrofit2.Call
 import retrofit2.CallAdapter
 import java.lang.reflect.Type

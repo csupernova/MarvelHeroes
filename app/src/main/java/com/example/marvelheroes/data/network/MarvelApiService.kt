@@ -1,7 +1,7 @@
-package com.example.marvelheroes.network
+package com.example.marvelheroes.data.network
 
 import arrow.core.Either
-import com.example.marvelheroes.network.models.InfoHeroes
+import com.example.marvelheroes.data.network.models.InfoHeroes
 import retrofit2.http.GET
 import retrofit2.http.Path
 

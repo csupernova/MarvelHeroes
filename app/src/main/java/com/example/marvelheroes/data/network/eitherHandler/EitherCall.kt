@@ -1,7 +1,7 @@
-package com.example.marvelheroes.network.eitherHandler
+package com.example.marvelheroes.data.network.eitherHandler
 
 import arrow.core.Either
-import com.example.marvelheroes.network.ApiError
+import com.example.marvelheroes.data.network.ApiError
 import okhttp3.Request
 import okio.Timeout
 import retrofit2.Call
@@ -10,8 +10,8 @@ import retrofit2.Response
 import java.lang.reflect.Type
 import arrow.core.Either.Left
 import arrow.core.Either.Right
-import com.example.marvelheroes.network.ApiError.HttpError
-import com.example.marvelheroes.network.ApiError.UnknownApiError
+import com.example.marvelheroes.data.network.ApiError.HttpError
+import com.example.marvelheroes.data.network.ApiError.UnknownApiError
 import okio.IOException
 
 

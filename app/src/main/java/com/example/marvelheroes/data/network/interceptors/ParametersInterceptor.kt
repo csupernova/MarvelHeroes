@@ -1,4 +1,4 @@
-package com.example.marvelheroes.network.interceptors
+package com.example.marvelheroes.data.network.interceptors
 
 import okhttp3.Interceptor
 import okhttp3.Response
