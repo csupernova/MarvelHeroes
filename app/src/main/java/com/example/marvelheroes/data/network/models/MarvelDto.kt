@@ -19,10 +19,10 @@ data class Data(
     val limit: Long,
     val total: Long,
     val count: Long,
-    val results: List<Result>,
+    val results: List<HeroDto>,
 )
 
-data class Result(
+data class HeroDto(
     val id: Long,
     val name: String,
     val description: String,

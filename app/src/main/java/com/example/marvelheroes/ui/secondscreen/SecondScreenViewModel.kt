@@ -5,7 +5,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.marvelheroes.data.network.ApiHeroesMapper
 import com.example.marvelheroes.data.network.MarvelApi
 import com.example.marvelheroes.ui.Hero
 import kotlinx.coroutines.launch
