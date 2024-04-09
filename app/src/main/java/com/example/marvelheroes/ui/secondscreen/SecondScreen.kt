@@ -9,11 +9,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.example.marvelheroes.R
 import com.example.marvelheroes.ui.Hero
@@ -29,21 +30,24 @@ fun SecondScreen(
     canNavigateBack: Boolean,
     navigateUp: () -> Unit,
 ) {
-    val secondScreenViewModel: SecondScreenViewModel = viewModel()
-    secondScreenViewModel.getMarvelInfoHero(characterId)
+    val heroViewModel = hiltViewModel<HeroViewModel>()
 
-    when (val secondScreenUiState = secondScreenViewModel.secondScreenUiState) {
-        is SecondScreenUiState.Loading -> LoadingScreen(modifier = Modifier.fillMaxSize())
-        is SecondScreenUiState.Success ->
-            ResultSecondScreen(
-                hero = secondScreenUiState.hero,
-                canNavigateBack = canNavigateBack,
-                navigateUp = navigateUp,
-            )
-        is SecondScreenUiState.Error -> ErrorScreen(
+    val heroState = heroViewModel.heroState.collectAsState().value
+    heroViewModel.getHeroById(characterId)
+
+    if(heroState.isLoading) LoadingScreen(modifier = Modifier.fillMaxSize())
+    else if (heroState.isError) {
+        ErrorScreen(
             modifier = Modifier.fillMaxSize(),
             canNavigateBack = canNavigateBack,
             navigateUp = navigateUp
+        )
+    }
+    else if (heroState.hero != null) {
+        ResultSecondScreen(
+            hero = heroState.hero,
+            canNavigateBack = canNavigateBack,
+            navigateUp = navigateUp,
         )
     }
 }

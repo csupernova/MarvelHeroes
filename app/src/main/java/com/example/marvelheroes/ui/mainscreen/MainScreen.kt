@@ -43,7 +43,7 @@ import com.example.marvelheroes.ui.components.LoadingScreen
 fun MainScreen(
     onCardClick: (String) -> Unit,
     modifier: Modifier = Modifier,
-    mainScreenUiState: MainScreenUiState
+    heroListState: HeroListState
 ) {
     Surface(
         modifier = modifier,
@@ -51,15 +51,9 @@ fun MainScreen(
     ) {
         FilledTriangle(MaterialTheme.colorScheme.secondary)
 
-        when (mainScreenUiState) {
-            is MainScreenUiState.Loading -> LoadingScreen(modifier = Modifier.fillMaxSize())
-            is MainScreenUiState.Success ->
-                ResultMainScreen(
-                    heroes = mainScreenUiState.heroes,
-                    onCardClick = onCardClick
-                )
-            is MainScreenUiState.Error -> ErrorScreen(modifier = Modifier.fillMaxSize())
-        }
+        if (heroListState.isLoading) LoadingScreen(modifier = Modifier.fillMaxSize())
+        else if (heroListState.isError) ErrorScreen(modifier = Modifier.fillMaxSize())
+        else ResultMainScreen(heroes = heroListState.heroList, onCardClick = onCardClick )
     }
 }
 
