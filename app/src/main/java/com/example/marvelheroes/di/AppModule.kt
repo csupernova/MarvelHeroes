@@ -45,6 +45,6 @@ object AppModule {
             app,
             HeroDatabase::class.java,
             "marvelheroes.db"
-        ).allowMainThreadQueries().build()
+        ).build()
     }
 }

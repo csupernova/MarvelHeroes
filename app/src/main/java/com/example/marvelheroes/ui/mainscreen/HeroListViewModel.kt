@@ -31,18 +31,19 @@ class HeroListViewModel @Inject constructor(
                     result ->
                 when(result) {
                     is Resource.Error -> {
-                        heroListState.update { it.copy(isError = true) }
+                        heroListState.update { it.copy(
+                            isLoading = false,
+                            isError = true) }
                     }
                     is Resource.Success -> {
                         result.data?.let{ heroList ->
                             heroListState.update {
-                                it.copy(heroList = heroList)
+                                it.copy(
+                                    isLoading = false,
+                                    heroList = heroList)
                             }
 
                         }
-                    }
-                    is Resource.Loading -> {
-                        heroListState.update { it.copy(isLoading = result.isLoading) }
                     }
                 }
             }

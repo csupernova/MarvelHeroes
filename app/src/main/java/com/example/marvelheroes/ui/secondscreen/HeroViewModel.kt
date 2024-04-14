@@ -20,25 +20,21 @@ class HeroViewModel @Inject constructor(
 
     fun getHeroById(characterId: String) {
         viewModelScope.launch {
-            heroState.update {
-                it.copy(isLoading = true)
-            }
             heroListRepository.getHero(characterId).collect {
                     result ->
                 when(result) {
                     is Resource.Error -> {
-                        heroState.update { it.copy(isError = true) }
+                        heroState.update { it.copy(
+                            isError = true) }
                     }
                     is Resource.Success -> {
                         result.data?.let{ hero ->
                             heroState.update {
-                                it.copy(hero = hero)
+                                it.copy(
+                                    hero = hero)
                             }
 
                         }
-                    }
-                    is Resource.Loading -> {
-                        heroState.update { it.copy(isLoading = result.isLoading) }
                     }
                 }
             }

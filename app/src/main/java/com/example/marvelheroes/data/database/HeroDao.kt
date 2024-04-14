@@ -10,9 +10,12 @@ interface HeroDao {
     @Upsert
     suspend fun upsertHeroList(heroList: List<HeroEntity>)
 
+    @Upsert
+    suspend fun upsertHero(hero: HeroEntity)
+
     @Query("SELECT * FROM hero_table")
-    fun getAllHeroes(): List<HeroEntity>
+    suspend fun getAllHeroes(): List<HeroEntity>
 
     @Query("SELECT * FROM hero_table WHERE id is :id")
-    fun getHeroById(id: String): HeroEntity
+    suspend fun getHeroById(id: String): HeroEntity
 }

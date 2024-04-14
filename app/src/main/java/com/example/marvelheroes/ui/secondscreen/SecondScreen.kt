@@ -20,7 +20,6 @@ import com.example.marvelheroes.R
 import com.example.marvelheroes.ui.Hero
 import com.example.marvelheroes.ui.components.AppBar
 import com.example.marvelheroes.ui.components.ErrorScreen
-import com.example.marvelheroes.ui.components.LoadingScreen
 
 
 @SuppressLint("StateFlowValueCalledInComposition")
@@ -35,8 +34,7 @@ fun SecondScreen(
     val heroState = heroViewModel.heroState.collectAsState().value
     heroViewModel.getHeroById(characterId)
 
-    if(heroState.isLoading) LoadingScreen(modifier = Modifier.fillMaxSize())
-    else if (heroState.isError) {
+    if (heroState.isError) {
         ErrorScreen(
             modifier = Modifier.fillMaxSize(),
             canNavigateBack = canNavigateBack,

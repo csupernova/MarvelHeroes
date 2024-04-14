@@ -25,7 +25,6 @@ class HeroListRepositoryImpl @Inject constructor(
 ): HeroListRepository{
     override suspend fun getHeroList(forceFetchFromRemote: Boolean): Flow<Resource<List<Hero>>> {
         return flow {
-            emit(Resource.Loading(true))
 
             val localHeroList = heroDatabase.heroDao().getAllHeroes()
             val shouldLoadLocalHero = localHeroList.isNotEmpty() && !forceFetchFromRemote
@@ -35,7 +34,6 @@ class HeroListRepositoryImpl @Inject constructor(
                     data = localHeroList.map { hero -> hero.toHeroUi()}
                 ))
 
-                emit(Resource.Loading(false))
                 return@flow
             }
             val heroListFromApi = mutableListOf<HeroEntity>()
@@ -52,13 +50,11 @@ class HeroListRepositoryImpl @Inject constructor(
             emit(Resource.Success(
                 heroListFromApi.map {it.toHeroUi()}
             ))
-            emit(Resource.Loading(false))
         }
     }
 
     override suspend fun getHero(id: String): Flow<Resource<Hero>> {
         return flow {
-            emit(Resource.Loading(true))
             val localHeroList = heroDatabase.heroDao().getAllHeroes()
 
             val shouldLocalHero = localHeroList.isNotEmpty()
@@ -67,7 +63,6 @@ class HeroListRepositoryImpl @Inject constructor(
                 emit(Resource.Success(
                     data = heroEntity.toHeroUi()
                 ))
-                emit(Resource.Loading(false))
                 return@flow
             }
             lateinit var heroFromApi: HeroEntity
@@ -79,10 +74,10 @@ class HeroListRepositoryImpl @Inject constructor(
                     }
                 }
             )
+            heroDatabase.heroDao().upsertHero(heroFromApi)
+
             emit(Resource.Success(heroFromApi.toHeroUi()))
-            emit(Resource.Loading(false))
             return@flow
         }
     }
-
 }
