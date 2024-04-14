@@ -59,10 +59,27 @@ class HeroListRepositoryImpl @Inject constructor(
     override suspend fun getHero(id: String): Flow<Resource<Hero>> {
         return flow {
             emit(Resource.Loading(true))
+            val localHeroList = heroDatabase.heroDao().getAllHeroes()
 
-            val heroEntity = heroDatabase.heroDao().getHeroById(id)
-
-            emit(Resource.Success(heroEntity.toHeroUi()))
+            val shouldLocalHero = localHeroList.isNotEmpty()
+            if (shouldLocalHero) {
+                val heroEntity = heroDatabase.heroDao().getHeroById(id)
+                emit(Resource.Success(
+                    data = heroEntity.toHeroUi()
+                ))
+                emit(Resource.Loading(false))
+                return@flow
+            }
+            lateinit var heroFromApi: HeroEntity
+            marvelApi.getInfoHero(id).fold(
+                ifLeft = { emit(Resource.Error(message = "Error")) },
+                ifRight = {
+                    it.data.results.map{ heroDto ->
+                        heroFromApi = heroDto.toHeroEntity()
+                    }
+                }
+            )
+            emit(Resource.Success(heroFromApi.toHeroUi()))
             emit(Resource.Loading(false))
             return@flow
         }
