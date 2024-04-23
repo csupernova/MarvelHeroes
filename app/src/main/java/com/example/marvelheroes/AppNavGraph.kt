@@ -3,6 +3,7 @@ package com.example.marvelheroes
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -11,7 +12,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.marvelheroes.ui.mainscreen.MainScreen
 import com.example.marvelheroes.ui.secondscreen.SecondScreen
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.marvelheroes.ui.mainscreen.MainScreenViewModel
+import com.example.marvelheroes.ui.mainscreen.HeroListViewModel
 
 enum class AppRoutes {
     Start,
@@ -22,7 +23,7 @@ enum class AppRoutes {
 fun AppNavGraph(
     navController: NavHostController = rememberNavController()
 ) {
-    val mainScreenViewModel: MainScreenViewModel = viewModel()
+    val heroListViewModel: HeroListViewModel = viewModel()
 
     NavHost(
         navController = navController,
@@ -32,7 +33,7 @@ fun AppNavGraph(
             MainScreen(
                 onCardClick = { navController.navigate("${AppRoutes.Detailed.name}/$it") },
                 modifier = Modifier.fillMaxSize(),
-                mainScreenUiState = mainScreenViewModel.mainScreenUiState
+                heroListState = heroListViewModel.heroListState.collectAsState().value
             )
         }
         composable(route="${AppRoutes.Detailed.name}/{characterId}") {

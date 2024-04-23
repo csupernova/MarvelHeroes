@@ -1,4 +1,4 @@
-package com.example.marvelheroes.network.models
+package com.example.marvelheroes.data.network.models
 
 import com.squareup.moshi.Json
 
@@ -19,10 +19,10 @@ data class Data(
     val limit: Long,
     val total: Long,
     val count: Long,
-    val results: List<Result>,
+    val results: List<HeroDto>,
 )
 
-data class Result(
+data class HeroDto(
     val id: Long,
     val name: String,
     val description: String,
