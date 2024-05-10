@@ -2,7 +2,7 @@ package com.example.marvelheroes.ui.secondscreen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.marvelheroes.data.repository.HeroListRepository
+import com.example.marvelheroes.domain.usecases.GetHeroUseCase
 import com.example.marvelheroes.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HeroViewModel @Inject constructor(
-    private val heroListRepository: HeroListRepository
+    private val getHeroUseCase: GetHeroUseCase
 ): ViewModel() {
 
     var heroState = MutableStateFlow(HeroState())
@@ -20,7 +20,7 @@ class HeroViewModel @Inject constructor(
 
     fun getHeroById(characterId: String) {
         viewModelScope.launch {
-            heroListRepository.getHero(characterId).collect {
+            getHeroUseCase.execute(characterId).collect {
                     result ->
                 when(result) {
                     is Resource.Error -> {
