@@ -1,4 +1,4 @@
-package com.example.marvelheroes.ui.mainscreen
+package com.example.marvelheroes.presentation.mainscreen
 
 
 import android.annotation.SuppressLint
@@ -34,10 +34,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.marvelheroes.R
-import com.example.marvelheroes.ui.Hero
-import com.example.marvelheroes.ui.components.ErrorScreen
-import com.example.marvelheroes.ui.components.HeroCard
-import com.example.marvelheroes.ui.components.LoadingScreen
+import com.example.marvelheroes.presentation.HeroUi
+import com.example.marvelheroes.presentation.components.ErrorScreen
+import com.example.marvelheroes.presentation.components.HeroCard
+import com.example.marvelheroes.presentation.components.LoadingScreen
 
 
 @Composable
@@ -63,7 +63,7 @@ fun MainScreen(
 
 @Composable
 fun ResultMainScreen(
-    heroes: List<Hero>,
+    heroes: List<HeroUi>,
     modifier: Modifier = Modifier,
     onCardClick: (String) -> Unit,
 ) {
@@ -82,7 +82,7 @@ fun ResultMainScreen(
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun FirstScreen(
-    heroes: List<Hero>,
+    heroes: List<HeroUi>,
     onCardClick: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {

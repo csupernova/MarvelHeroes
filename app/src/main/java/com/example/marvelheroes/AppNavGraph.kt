@@ -7,8 +7,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.marvelheroes.ui.mainscreen.MainScreen
-import com.example.marvelheroes.ui.secondscreen.SecondScreen
+import com.example.marvelheroes.presentation.mainscreen.MainScreen
+import com.example.marvelheroes.presentation.secondscreen.SecondScreen
 
 enum class AppRoutes {
     Start,

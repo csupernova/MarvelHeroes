@@ -3,7 +3,7 @@ package com.example.marvelheroes
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import com.example.marvelheroes.ui.theme.AppTheme
+import com.example.marvelheroes.presentation.theme.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

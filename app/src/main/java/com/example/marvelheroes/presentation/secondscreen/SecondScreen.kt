@@ -1,4 +1,4 @@
-package com.example.marvelheroes.ui.secondscreen
+package com.example.marvelheroes.presentation.secondscreen
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -16,9 +16,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.example.marvelheroes.R
-import com.example.marvelheroes.ui.Hero
-import com.example.marvelheroes.ui.components.AppBar
-import com.example.marvelheroes.ui.components.ErrorScreen
+import com.example.marvelheroes.presentation.HeroUi
+import com.example.marvelheroes.presentation.components.AppBar
+import com.example.marvelheroes.presentation.components.ErrorScreen
 
 
 
@@ -51,7 +51,7 @@ fun SecondScreen(
 
 @Composable
 fun ResultSecondScreen(
-    hero: Hero,
+    hero: HeroUi,
     canNavigateBack: Boolean,
     navigateUp: () -> Unit,
 

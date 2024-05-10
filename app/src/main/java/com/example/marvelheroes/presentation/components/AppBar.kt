@@ -1,4 +1,4 @@
-package com.example.marvelheroes.ui.components
+package com.example.marvelheroes.presentation.components
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack

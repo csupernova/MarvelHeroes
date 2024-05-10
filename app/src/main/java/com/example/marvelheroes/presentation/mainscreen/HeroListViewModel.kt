@@ -1,4 +1,4 @@
-package com.example.marvelheroes.ui.mainscreen
+package com.example.marvelheroes.presentation.mainscreen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

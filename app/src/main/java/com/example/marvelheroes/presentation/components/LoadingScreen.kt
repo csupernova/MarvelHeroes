@@ -1,4 +1,4 @@
-package com.example.marvelheroes.ui.components
+package com.example.marvelheroes.presentation.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.size

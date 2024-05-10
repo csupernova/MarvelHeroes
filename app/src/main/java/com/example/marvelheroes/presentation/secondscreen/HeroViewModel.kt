@@ -1,4 +1,4 @@
-package com.example.marvelheroes.ui.secondscreen
+package com.example.marvelheroes.presentation.secondscreen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
