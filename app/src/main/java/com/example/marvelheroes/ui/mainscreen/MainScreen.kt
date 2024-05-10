@@ -23,6 +23,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -31,6 +32,7 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.marvelheroes.R
 import com.example.marvelheroes.ui.Hero
 import com.example.marvelheroes.ui.components.ErrorScreen
@@ -38,13 +40,15 @@ import com.example.marvelheroes.ui.components.HeroCard
 import com.example.marvelheroes.ui.components.LoadingScreen
 
 
-@SuppressLint("UnusedBoxWithConstraintsScope")
 @Composable
 fun MainScreen(
     onCardClick: (String) -> Unit,
     modifier: Modifier = Modifier,
-    heroListState: HeroListState
 ) {
+    val heroListViewModel: HeroListViewModel = hiltViewModel<HeroListViewModel>()
+
+    val heroListState = heroListViewModel.heroListState.collectAsState().value
+
     Surface(
         modifier = modifier,
         color = MaterialTheme.colorScheme.primary
