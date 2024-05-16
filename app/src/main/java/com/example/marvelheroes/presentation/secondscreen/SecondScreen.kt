@@ -24,14 +24,13 @@ import com.example.marvelheroes.presentation.components.ErrorScreen
 
 @Composable
 fun SecondScreen(
-    characterId: String,
     canNavigateBack: Boolean,
     navigateUp: () -> Unit,
 ) {
     val heroViewModel = hiltViewModel<HeroViewModel>()
 
     val heroState = heroViewModel.heroState.collectAsState().value
-    heroViewModel.getHeroById(characterId)
+    heroViewModel.getHeroById()
 
     if (heroState.isError) {
         ErrorScreen(
