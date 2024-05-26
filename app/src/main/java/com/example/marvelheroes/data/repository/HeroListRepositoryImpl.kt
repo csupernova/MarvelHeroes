@@ -5,25 +5,18 @@ import com.example.marvelheroes.data.database.HeroEntity
 import com.example.marvelheroes.data.mappers.toHeroEntity
 import com.example.marvelheroes.data.mappers.toHeroUi
 import com.example.marvelheroes.data.network.MarvelApi
-import com.example.marvelheroes.ui.Hero
+import com.example.marvelheroes.domain.repository.HeroListRepository
+import com.example.marvelheroes.presentation.HeroUi
 import com.example.marvelheroes.utils.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-interface HeroListRepository {
-    suspend fun getHeroList(
-        forceFetchFromRemote: Boolean
-    ): Flow<Resource<List<Hero>>>
-
-    suspend fun getHero(id: String): Flow<Resource<Hero>>
-}
-
 class HeroListRepositoryImpl @Inject constructor(
     private val marvelApi: MarvelApi,
     private val heroDatabase: HeroDatabase
-): HeroListRepository{
-    override suspend fun getHeroList(forceFetchFromRemote: Boolean): Flow<Resource<List<Hero>>> {
+): HeroListRepository {
+    override suspend fun getHeroList(forceFetchFromRemote: Boolean): Flow<Resource<List<HeroUi>>> {
         return flow {
 
             val localHeroList = heroDatabase.heroDao().getAllHeroes()
@@ -53,7 +46,7 @@ class HeroListRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getHero(id: String): Flow<Resource<Hero>> {
+    override suspend fun getHero(id: String): Flow<Resource<HeroUi>> {
         return flow {
             val localHeroList = heroDatabase.heroDao().getAllHeroes()
 

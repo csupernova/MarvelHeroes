@@ -1,8 +1,8 @@
-package com.example.marvelheroes.ui.mainscreen
+package com.example.marvelheroes.presentation.mainscreen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.marvelheroes.data.repository.HeroListRepository
+import com.example.marvelheroes.domain.usecases.GetHeroListUseCase
 import com.example.marvelheroes.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HeroListViewModel @Inject constructor(
-    private val heroListRepository: HeroListRepository
+    private val getHeroListUseCase: GetHeroListUseCase
 ): ViewModel() {
 
     var heroListState = MutableStateFlow(HeroListState())
@@ -27,7 +27,7 @@ class HeroListViewModel @Inject constructor(
             heroListState.update {
                 it.copy(isLoading = true)
             }
-            heroListRepository.getHeroList(false).collect {
+            getHeroListUseCase.execute(false).collect {
                     result ->
                 when(result) {
                     is Resource.Error -> {

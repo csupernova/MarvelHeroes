@@ -2,10 +2,10 @@ package com.example.marvelheroes.data.mappers
 
 import com.example.marvelheroes.data.database.HeroEntity
 import com.example.marvelheroes.data.network.models.HeroDto
-import com.example.marvelheroes.ui.Hero
+import com.example.marvelheroes.presentation.HeroUi
 
-fun HeroDto.toHeroUi(): Hero {
-    return Hero(
+fun HeroDto.toHeroUi(): HeroUi {
+    return HeroUi(
         id = id.toString(),
         name = name,
         description = description,
@@ -13,8 +13,8 @@ fun HeroDto.toHeroUi(): Hero {
     )
 }
 
-fun HeroEntity.toHeroUi(): Hero {
-    return Hero(
+fun HeroEntity.toHeroUi(): HeroUi {
+    return HeroUi(
         id = id,
         name = name,
         description = description,

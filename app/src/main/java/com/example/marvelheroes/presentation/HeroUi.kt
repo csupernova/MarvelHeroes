@@ -1,6 +1,6 @@
-package com.example.marvelheroes.ui
+package com.example.marvelheroes.presentation
 
-data class Hero(
+data class HeroUi(
     val id: String,
     val name: String,
     val description: String,

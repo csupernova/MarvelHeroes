@@ -1,4 +1,4 @@
-package com.example.marvelheroes.ui.components
+package com.example.marvelheroes.presentation.components
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -18,12 +18,12 @@ import androidx.compose.ui.res.painterResource
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.marvelheroes.R
-import com.example.marvelheroes.ui.Hero
+import com.example.marvelheroes.presentation.HeroUi
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HeroCard(
-    item: Hero,
+    item: HeroUi,
     onCardClick: (String) -> Unit,
 ) {
     Card(
