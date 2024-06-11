@@ -10,11 +10,13 @@ import com.example.marvelheroes.presentation.theme.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
 import android.Manifest
 import android.content.pm.PackageManager
+import androidx.activity.enableEdgeToEdge
 import androidx.core.app.ActivityCompat
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         requestNotificationPermission()
         super.onCreate(savedInstanceState)
         setContent {
