@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MarvelHeroes</string>
+    <string name="title">Выбери своего героя</string>
+    <string name="back_button">назад</string>
+    <string name="loading">Загрузка</string>
+    <string name="failed_to_load">Ошибка при загразке</string>
+    <string name="connection_error">Ошибка соединения</string>
+</resources>
