@@ -2,9 +2,12 @@ package com.example.marvelheroes.presentation.mainscreen
 
 
 import android.annotation.SuppressLint
+import android.content.res.Configuration
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.gestures.snapping.rememberSnapFlingBehavior
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -29,9 +32,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.marvelheroes.R
 import com.example.marvelheroes.presentation.HeroUi
@@ -86,12 +91,19 @@ fun FirstScreen(
     onCardClick: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val isLandscape = LocalConfiguration.current.orientation == Configuration.ORIENTATION_LANDSCAPE
+
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
 
         val lazyListState = rememberLazyListState()
         val flingBehavior = rememberSnapFlingBehavior(lazyListState = lazyListState)
 
-        Box(modifier = modifier.padding(top=dimensionResource(R.dimen.padding_large))
+        Box(modifier = modifier.padding(
+            top = when(isLandscape) {
+                false -> dimensionResource(R.dimen.padding_large)
+                true -> 0.dp
+            }
+        )
         ) {
             Image(
                 contentDescription = null,
@@ -102,7 +114,12 @@ fun FirstScreen(
                         height = dimensionResource(R.dimen.height_logo))
             )
         }
-        Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_large)))
+        Spacer(modifier = Modifier.height(
+            when (isLandscape) {
+                false -> dimensionResource(R.dimen.padding_large)
+                true -> 10.dp
+            })
+        )
 
         Text(
             text = stringResource(R.string.title),
@@ -110,14 +127,13 @@ fun FirstScreen(
             style = MaterialTheme.typography.titleLarge
         )
 
-        BoxWithConstraints {
+        BoxWithConstraints{
             LazyRow(
                 verticalAlignment = Alignment.CenterVertically,
                 state = lazyListState,
                 flingBehavior = flingBehavior,
                 contentPadding = PaddingValues(
-                    start = dimensionResource(R.dimen.padding_lazyrow),
-                    end = dimensionResource(R.dimen.padding_lazyrow)
+                    horizontal = dimensionResource(R.dimen.padding_lazyrow)
                 ),
                 horizontalArrangement = Arrangement.spacedBy(
                     dimensionResource(R.dimen.padding_btwn_cards)

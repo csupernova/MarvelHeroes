@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -6,6 +8,8 @@ plugins {
     id("com.google.dagger.hilt.android")
     id("com.google.gms.google-services")
 }
+val apiPublicKey: String = gradleLocalProperties(rootDir).getProperty("apiPublicKey")
+val apiPrivateKey: String = gradleLocalProperties(rootDir).getProperty("apiPrivateKey")
 
 android {
     namespace = "com.example.marvelheroes"
@@ -22,8 +26,9 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+        buildConfigField("String", "apiPublicKey", apiPublicKey)
+        buildConfigField("String", "apiPrivateKey", apiPrivateKey)
     }
-
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -42,6 +47,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
@@ -76,7 +82,7 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.6.0")
 
     //retrofit
-    implementation("com.squareup.retrofit2:converter-moshi:2.4.0")
+    implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
