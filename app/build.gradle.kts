@@ -26,12 +26,10 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+        buildConfigField("String", "apiPublicKey", apiPublicKey)
+        buildConfigField("String", "apiPrivateKey", apiPrivateKey)
     }
     buildTypes {
-        debug {
-            buildConfigField("String", "apiPublicKey",  apiPublicKey)
-            buildConfigField("String", "apiPrivateKey",  apiPrivateKey)
-        }
         release {
             isMinifyEnabled = false
             proguardFiles(
