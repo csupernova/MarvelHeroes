@@ -49,8 +49,9 @@ I used:
 - Android Studio Hedgehog | 2023.1.1 Patch 2
 - Gradle 8.2
 - Kotlin 1.9.22
-Add apiPrivateKey=<YourPrivateKey>, apiPublicKey=<YourPublicKey> in local.properties file, that you should get from https://developer.marvel.com/.
-Run -> Run 'app'
+  
+<p> Add apiPrivateKey=<YourPrivateKey>, apiPublicKey=<YourPublicKey> in local.properties file, that you should get from https://developer.marvel.com/.</p>
+<p> Run -> Run 'app'</p>
 
 
 
